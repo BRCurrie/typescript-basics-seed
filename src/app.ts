@@ -1,28 +1,38 @@
 // 'tsc' in terminal, then 'node dist/app.js' to run in terminal.
 
-// Initial function allows variables to be passed into it.
-
-// function multiply(a, b) {
-//     return a * b;
+// First Object.
+// const pizza = {
+//   name: 'Pepperoni',
+//   price: 15
 // };
 
-// Passes the numbers 5 and 25 into the multiply function when called.
-// console.log(multiply(5, 25));
+// First object can contain a function.
+const pizza = {
+  name: 'Pepperoni',
+  price: 15,
+  getName: function() {
+    return this.name;
+  }
+};
+// boilerplate code reduction. `getname()` instead of getname: function()
+console.log(pizza.getName());
 
-// Second function has a value declared for the second variable, which will usually increment the value by 10.
-function multiply2(a, b = 10) {
-  return a * b;
+// Second Object
+const toppings = ['pepperoni'];
+// Third object combines the previous two.
+// const order = {
+//     pizza: pizza,
+//     toppings: toppings,
+// };
+
+// Cleaner Third object. This is exactly the same.
+const order = { pizza, toppings };
+
+console.log(order);
+
+// Objects can be joined inside of a function as well.
+function createOrder(pizza, toppings) {
+  return { pizza, toppings };
 }
 
-// This function can also be written as an if statement for b not having a value.
-// function multiply2(a, b) {
-//     if (!b) {
-//         b = 10;
-//     } return a * b;
-// }
-
-console.log(multiply2(5));
-
-// However the second variable can be overwritten as needed.
-
-console.log(multiply2(5, 25));
+console.log(createOrder(pizza, toppings));
