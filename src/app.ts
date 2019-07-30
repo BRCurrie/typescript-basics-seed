@@ -1,66 +1,28 @@
-const pizzas = [{ name: 'Pepperoni', toppings: ['Pepperoni'] }];
+// 'tsc' in terminal, then 'node dist/app.js' to run in terminal.
 
-// Use 'tsc' command in terminal to compile.
-// Then use 'node dist/app.js' to show results in terminal.
+// Initial function allows variables to be passed into it.
 
-// Initial function example.
-
-// const mappedPizzas = pizzas.map(function(pizza) {
-//   return pizza.name.toUpperCase();
-// });
-
-// Instead of above code, an arrow function looks like this.
-
-// const mappedPizzas = pizzas.map(pizza => {
-//     return pizza.name.toUpperCase();
-// });
-
-// Implicit return will look like this. This is exactly equivalent to the initial function.
-// This leads to a much cleaner codebase.
-
-const mappedPizzas = pizzas.map(pizza => pizza.name.toUpperCase());
-
-console.log(mappedPizzas);
-
-// Initial function for this argument.
-// 'this' is a reference to pizza2 object of {name: , and getName: }.
-
-// const pizza2 = {
-//   name: 'Blazing Inferno',
-//   getName: function() {
-//     console.log(this);
-//   }
+// function multiply(a, b) {
+//     return a * b;
 // };
 
-// The following function now sets a Timeout of 100 ms and 'this' now refers to the setTimeout.
+// Passes the numbers 5 and 25 into the multiply function when called.
+// console.log(multiply(5, 25));
 
-// const pizza2 = {
-//   name: 'Blazing Inferno',
-//   getName:  function() {
-//     setTimeout(function() {
-//       console.log(this);
-//     }, 100);
-//   }
-// };
+// Second function has a value declared for the second variable, which will usually increment the value by 10.
+function multiply2(a, b = 10) {
+  return a * b;
+}
 
-// Using an arrow function 'this' now refers back to the object and will allow uses of parts of it such as this.name or this.getName.
+// This function can also be written as an if statement for b not having a value.
+// function multiply2(a, b) {
+//     if (!b) {
+//         b = 10;
+//     } return a * b;
+// }
 
-// const pizza2 = {
-//   name: 'Blazing Inferno',
-//   getName: function() {
-//     setTimeout(() => {
-//       console.log(this);
-//     }, 100);
-//   }
-// };
+console.log(multiply2(5));
 
-// End result without using setTimeout to call the object name immediately instead of using the timeout.
-// 'this.name' was switched to pizza2.name because this has a global value and lacks specific context.
-const pizza2 = {
-  name: 'Blazing Inferno',
-  getName: () => pizza2.name
-};
+// However the second variable can be overwritten as needed.
 
-//  Below is a console log of the result of the getName function.
-//  Initial function result is undefined.
-console.log(pizza2.getName);
+console.log(multiply2(5, 25));
