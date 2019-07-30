@@ -1,57 +1,33 @@
-// 'tsc' in terminal, then 'node dist/app.js' to run in terminal.
+// Run `tsc` then `node dist/app.js` to see result in console.
 
-const pizza = {
-  name: 'Pepperoni',
-  toppings: ['pepperoni']
-};
+// The uppercase version is a JavaScript typing and should not be used.
+// The lowercase version is Typescript typing and should be adhered to.
+// JS example looks like this `Number()`
+// TS example looks like this `: number`
 
-// We can create a function that expects pizza as an argument.
-// function order(pizza) {
-// };
+// Starting argument.
+// let pizzaCost = 10;
 
-// Now we can call the function and pass in the pizza constant.
-// order(pizza);
+// If we do the following Typescript infers 10 is a number.
+// If we call a number as a string instead it will throw an error.
+// pizzaCost = '25';
 
-// You can create an object literal structure around the argument to destructure the const.
-// This means the argument coming in is an object and it has a name property and a toppings property.
-// function order({ name, toppings }) {
-//   console.log(name, toppings);
+// We can explicity set the typing as a number like so.
+// We also switch from a let to a const for the rest of the example.
+const pizzaCost: number = 10;
+
+const pizzaToppings: number = 2;
+
+// Without providing typing and using a strict typechecking option in tsconfig
+// these arguments will be underlined and flagged as wrong.
+// function calculatePrice(cost, toppings) {
 // }
 
-// If you needed to rename a property, for example if it needed to be changed before
-// sending it to a server.
-// function order({ name: pizzaName, toppings: pizzaToppings }) {
-//   console.log(pizzaName, pizzaToppings);
-// }
-
-// If we wanted to return a new object with those new properties.
-function order({ name: pizzaName, toppings: pizzaToppings }) {
-  return { pizzaName, pizzaToppings };
+// Typescript also infers the function results in a number, but we specify that typing too.
+function calculatePrice(cost: number, toppings: number): number {
+  return cost + 1.5 * toppings;
+  // The following will not work because the result is a string instead of a number.
+  // return (cost + 1.5 * toppings).toString();
 }
-// This would return the entire object with those two properties.
-const myOrder = order(pizza);
-// You can also destructure the returned result if you only want one of the properties.
-// This syntax is very similar to an import statement.
-// Instead of asking for a property from a module, we are asking for a property of an object.
-const { pizzaName } = order(pizza);
-
-// Arrays can be destructured too.
-const toppings = ['bacon', 'pepperoni', 'chilli'];
-
-// Typically you would do this.
-// const firstItem = toppings[0];
-
-// However we can use array destructuring. The names do not matter, only the order matters.
-const [first, second, third] = toppings;
-
-// These will be returned as string values because they are no longer in an array.
-console.log(first, third);
-
-// Arrays can be destructed after they are passed into a function.
-// A typing of : any has been added to the array because of Typescript type checking.
-function logToppings([first, second, third]: any) {
-  console.log(second);
-}
-// Call the function and pass in the array.
-// This will only log the second topping as a string.
-logToppings(toppings);
+const cost: number = calculatePrice(pizzaCost, pizzaToppings);
+console.log('Pizza costs: ' + cost);
