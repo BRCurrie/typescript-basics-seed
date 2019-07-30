@@ -1,38 +1,20 @@
 // 'tsc' in terminal, then 'node dist/app.js' to run in terminal.
 
-// First Object.
-// const pizza = {
-//   name: 'Pepperoni',
-//   price: 15
-// };
+// Initial function uses an array of a definite size.
 
-// First object can contain a function.
-const pizza = {
-  name: 'Pepperoni',
-  price: 15,
-  getName: function() {
-    return this.name;
-  }
-};
-// boilerplate code reduction. `getname()` instead of getname: function()
-console.log(pizza.getName());
+// function sumAll(arr) {
+//   return arr.reduce((prev, next) => prev + next);
+// }
 
-// Second Object
-const toppings = ['pepperoni'];
-// Third object combines the previous two.
-// const order = {
-//     pizza: pizza,
-//     toppings: toppings,
-// };
+// const sum = sumAll([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-// Cleaner Third object. This is exactly the same.
-const order = { pizza, toppings };
-
-console.log(order);
-
-// Objects can be joined inside of a function as well.
-function createOrder(pizza, toppings) {
-  return { pizza, toppings };
+// Using rest parameters, we can pass in an indefinite size object.
+// Rest parameters can be used as a secondary argument. For example if we expected a message first.
+function sumAll(message, ...arr) {
+  console.log(message);
+  return arr.reduce((prev, next) => prev + next);
 }
 
-console.log(createOrder(pizza, toppings));
+const sum = sumAll('Hello!', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+console.log(sum);
