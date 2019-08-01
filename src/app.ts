@@ -1,14 +1,10 @@
 // Run `tsc` then `node dist/app.js` to see result in console.
 
-const pizzas: number = 5;
+// If you do not specify a type it will be of type any by default.
+let coupon;
 
-function offerDiscount(orders: number): boolean {
-  return orders >= 3;
-}
+coupon = 25;
 
-// You do not deal with setting types on conditional statements.
-if (offerDiscount(pizzas)) {
-  console.log(`You are entitled to a discount!`);
-} else {
-  console.log(`Order more than 3 pizzas for a discount!`);
-}
+coupon = '25';
+
+coupon = true;
