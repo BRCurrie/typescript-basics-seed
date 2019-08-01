@@ -1,13 +1,14 @@
 // Run `tsc` then `node dist/app.js` to see result in console.
 
-const coupon: string = 'pizza25';
+const pizzas: number = 5;
 
-function normalizeCoupon(code: string): string {
-  return code.toUpperCase();
+function offerDiscount(orders: number): boolean {
+  return orders >= 3;
 }
 
-const couponMessage: string = `
- Final coupon is ${normalizeCoupon(coupon)}
-`;
-
-console.log(couponMessage);
+// You do not deal with setting types on conditional statements.
+if (offerDiscount(pizzas)) {
+  console.log(`You are entitled to a discount!`);
+} else {
+  console.log(`Order more than 3 pizzas for a discount!`);
+}
