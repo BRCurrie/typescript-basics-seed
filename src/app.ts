@@ -1,11 +1,13 @@
 // Run `tsc` then `node dist/app.js` to see result in console.
 
-// Type is inferred as a string.
-let implicitCoupon = 'pizza25';
+let selectedTopping: string = 'pepperoni';
+// This is an impure function. It will mutate values outside of itself.
+// selectTopping function is of type void.
+// It will typically be used when you are not returning something from a function.
+function selectTopping(topping: string): void {
+  selectedTopping = topping;
+}
 
-// Type is explicity stated to be a string.
-let explicitCoupon: string = 'pizza25';
+selectTopping('bacon');
 
-// Type is inferred to be any type.
-let anyCoupon;
-anyCoupon = 'pizza25';
+console.log(selectedTopping);
