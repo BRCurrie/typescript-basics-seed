@@ -1,14 +1,31 @@
 // Run `tsc` then `node dist/app.js` to see result in console.
 
-let pizzaSize: string = 'small';
-
-// Union type checking allows us to specify multiple types.
-// We could also specify numbers and set the variable to a number type.
-function selectSize(size: 'small' | 'medium' | 'large'): void {
-  pizzaSize = size;
+// Named Function
+function sumOrder(price: number, quantity: number): number {
+  return price * quantity;
 }
-// Intentionally mispelled. typescript helps us out here.
-// If we hover over the problem we see what the accepted values would be.
-selectSize('meduim');
 
-console.log(`Pizza size: ${pizzaSize}`);
+// Setting up to recieve a function that was not yet defined.
+// Useful if we dont know what the signature of the function might be.
+let sumOrderLet: Function;
+
+// If using a function called by another library or that was not yet defined.
+// We can change the value of this function.
+sumOrderLet = (price: number, quantity: number): number => {
+  return price * quantity;
+};
+
+const sum = sumOrderLet(25, 2);
+
+console.log(`Total sum: ${sum}`);
+
+// Setting up a function which will return a type of number. Input variable names are needed.
+let sumNumber: (price: number, quantity: number) => number;
+
+// We can also change the variable names and use implicit return.
+// This will show us that x is price: number and y is quantity: number.
+sumNumber = (x, y) => x * y;
+
+const sumNum = sumNumber(15, 2);
+
+console.log(`Second total: ${sumNum}`);
