@@ -1,10 +1,11 @@
 // Run `tsc` then `node dist/app.js` to see result in console.
 
-// If you do not specify a type it will be of type any by default.
-let coupon;
+// Type is inferred as a string.
+let implicitCoupon = 'pizza25';
 
-coupon = 25;
+// Type is explicity stated to be a string.
+let explicitCoupon: string = 'pizza25';
 
-coupon = '25';
-
-coupon = true;
+// Type is inferred to be any type.
+let anyCoupon;
+anyCoupon = 'pizza25';
