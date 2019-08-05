@@ -1,25 +1,14 @@
 // Run `tsc` then `node dist/app.js` to see result in console.
 
-// tsconfig.json strict type checking was changed to false for this chapter.
-// this will allow us to set the value to null.
-let coupon: string = 'pizza25';
-// The pipe operator would allow the variable to be set as a string or a null value.
-let couponOrNull: string | null = 'pizza26';
-// remove data from coupon variable such as an incorrect entry needing to be reset.
-function removeCoupon(): void {
-  // changing strictNullCheck to true will identify an issue with setting a string value to null.
-  coupon = null;
+let pizzaSize: string = 'small';
+
+// Union type checking allows us to specify multiple types.
+// We could also specify numbers and set the variable to a number type.
+function selectSize(size: 'small' | 'medium' | 'large'): void {
+  pizzaSize = size;
 }
+// Intentionally mispelled. typescript helps us out here.
+// If we hover over the problem we see what the accepted values would be.
+selectSize('meduim');
 
-// log initial coupon value.
-
-console.log(coupon);
-
-// reset coupon by calling the function
-removeCoupon();
-
-// log nullified value.
-console.log(coupon);
-
-// Set strictNullCheck to true to see the changes.
-// Set strict typechecking to true to continue with the next chapters.
+console.log(`Pizza size: ${pizzaSize}`);
