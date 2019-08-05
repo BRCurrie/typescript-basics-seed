@@ -1,13 +1,10 @@
 // Run `tsc` then `node dist/app.js` to see result in console.
 
-let selectedTopping: string = 'pepperoni';
-// This is an impure function. It will mutate values outside of itself.
-// selectTopping function is of type void.
-// It will typically be used when you are not returning something from a function.
-function selectTopping(topping: string): void {
-  selectedTopping = topping;
+// Never type is used when the function never actually returns something, or in our case
+// an error is thrown.
+function orderError(error: string): never {
+  throw new Error(error);
+  // We are never going to return a value!
 }
 
-selectTopping('bacon');
-
-console.log(selectedTopping);
+orderError('Something went wrong');
