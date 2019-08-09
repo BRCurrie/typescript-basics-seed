@@ -1,42 +1,33 @@
 // Run `tsc` then `node dist/app.js` to see result in console.
 
-// // We can assign any kind of type to a type alias.
-// Purely virtual for typechecking purposes. Does not get compiled down to JS.
-// After compiling with `tsc` you can see the types are gone.
-// There will be a var set to 'small' and a function call with a medium argument.
+type Pizza = { name: string; toppings: number };
 
-// // Setup with a union type. Default is small.
-// let pizzaSize: 'small' | 'medium' | 'large' = 'small';
+const pizza: Pizza = { name: 'Blazing Inferno', toppings: 5 };
 
-// // setup the function. We still need to use the union type.
-// const selectSize = (size: 'small' | 'medium' | 'large') => {
-//     pizzaSize = size;
+// We are going to parse the pizza object into JSON and parse it back.
+// Convert the answer into a string.
+const serialized = JSON.stringify(pizza);
+
+// Then convert the data back, calling it on the object itself.
+// Does not offer completion when we expect Pizza type back.
+// Right not typescript assumes the object returning is : any.
+// function getNameFromJSON(obj: string): Pizza {
+//     return JSON.parse(obj);
 // };
 
-// // Now we call the function. This value is protected and you cannot enter 'smalls' for example.
-// selectSize('medium')
+// This does allow us to call the name and is autocompleted. But we want to do that in the function.
+// getNameFromJSON(serialized).name;
 
-// // // // // Here we setup a type first.
-type Size = 'small' | 'medium' | 'large';
+// Old way to solve this. Pizza type is removed from behind argument. Type of .name or
+// .topping would be inferred and autocomplete works to fill in function.
+// function getNameFromJSON(obj: string) {
+//     return (<Pizza>JSON.parse(obj)).name;
+// };
 
-// Setup with a new type alias. Default is still small.
-let pizzaSize: Size = 'small';
+getNameFromJSON(serialized);
 
-// Function setup now uses Size type alias as well.
-const selectSize = (size: Size) => {
-  pizzaSize = size;
-};
-
-// Now we call the function.
-selectSize('medium');
-
-// Function types can also be setup with type alias.
-type Callback = (size: Size) => void;
-
-// And modify the function to include the callback type.
-const selectSize2: Callback = x => {
-  pizzaSize = x;
-};
-
-// And we can see that void is now the expected result as nothing is returned from the function.
-selectSize2('medium');
+// Preferred way of typing the JSON object as : Pizza. Type is correctly applied
+// and autocomplete works.
+function getNameFromJSON(obj: string) {
+  return (JSON.parse(obj) as Pizza).name;
+}
