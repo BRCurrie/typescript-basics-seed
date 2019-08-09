@@ -1,21 +1,22 @@
 // Run `tsc` then `node dist/app.js` to see result in console.
 
-// Interfaces can be extended.
-// We have moved sizes to its own interface. For example if it was used in a different
-// interface like Cookies as well as Pizza.
 interface Sizes {
   sizes: string[];
 }
 
-// By moving sizes to the Sizes interface, we can add `extends Sizes` to the Pizza
-// interface to inherit the properties.
+// We can add optional properties to interfaces. As an example we want to add toppings
+// after we have created the pizza.
+// We mark this property as optional by adding the `?` in the syntax.
 interface Pizza extends Sizes {
   name: string;
+  toppings?: number;
   getAvailableSizes(): string[];
 }
 
 let pizza: Pizza;
 
+// We could add toppings and a default behavior to this function, but that may not be
+// desired in our application.
 function createPizza(name: string, sizes: string[]): Pizza {
   return {
     name,
@@ -27,3 +28,5 @@ function createPizza(name: string, sizes: string[]): Pizza {
 }
 
 pizza = createPizza('Pepperoni', ['small', 'medium']);
+
+pizza.toppings = 1;
