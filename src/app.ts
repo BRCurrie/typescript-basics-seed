@@ -4,19 +4,17 @@ interface Sizes {
   sizes: string[];
 }
 
-// We can add optional properties to interfaces. As an example we want to add toppings
-// after we have created the pizza.
-// We mark this property as optional by adding the `?` in the syntax.
 interface Pizza extends Sizes {
   name: string;
   toppings?: number;
   getAvailableSizes(): string[];
+  // Adding an index signature.
+  // Each pizza gets a unique id, however we don't know the property name.
+  [key: number]: string;
 }
 
 let pizza: Pizza;
 
-// We could add toppings and a default behavior to this function, but that may not be
-// desired in our application.
 function createPizza(name: string, sizes: string[]): Pizza {
   return {
     name,
@@ -28,5 +26,11 @@ function createPizza(name: string, sizes: string[]): Pizza {
 }
 
 pizza = createPizza('Pepperoni', ['small', 'medium']);
+
+// If we have flattened an array structure and want to use a value as a lookup structure.
+// Our pizza id is xyz and we cannot set properties dynamically.
+// Our number might be a unique id from the server.
+// We want a key to index this to and be able to use dynamic values.
+pizza[1] = 'xyz';
 
 pizza.toppings = 1;
