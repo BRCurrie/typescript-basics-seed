@@ -1,54 +1,35 @@
 // 'tsc' in terminal, then 'node dist/app.js' to run in terminal.
 
-// tsconfig.json strict typechecking should be set to false for the first section.
+// Private is only available inside of the class. Public will be available everywhere.
 
-// Old way of doing things.
-
-// // Function for creating a pizza.
-// function Pizza(name: string) {
-//   this.name = name;
-//   this.toppings = [];
-// }
-// // Push the new topping into the array.
-// Pizza.prototype.addTopping = function addTopping(topping: string) {
-//   this.toppings.push(topping);
-// };
-
-// // Create new pizza.
-// const pizza = new Pizza('Pepperoni');
-
-// // Add topping to pizza.
-// pizza.addTopping('pepperoni');
-
-// // Result from console log should show a pizza object with the name and toppings array.
-// console.log(pizza);
-
-// tsconfig.json strict typechecking should be set to true for this second section.
-
-// Create the class.
-// Constructor function is basically the create pizza function.
-// Properties need to be declared in the class before we can register values to them.
-class Pizza2 {
-  // Defining property of name to be used in constructor function.
-  name: string;
-  // Defining topping as an empty string array by default.
+class Pizza {
+  //   public name: string;
   toppings: string[] = [];
 
-  constructor(name: string) {
-    // .name is underlined if property name is not defined yet.
-    this.name = name;
-  }
-  // Now this pushes a new topping into the array.
+  //   constructor(name: string) {
+  //     this.name = name;
+  //   }
+
+  // This constructor declares the public property of name and defines internally
+  // this.name = name. Shorthand syntax for the code above.
+  constructor(public name: string) {}
+
+  //   Public function. Properties and functions are public by default.
   addTopping(topping: string) {
+    this.toppings.push(topping);
+  }
+  //   Private function.
+  private addTopping2(topping: string) {
     this.toppings.push(topping);
   }
 }
 
-// Create new pizza2.
-const pizza = new Pizza2('Pepperoni');
+const pizza = new Pizza('Pepperoni');
 
-// Add topping to pizza.
+// Public function adding to the toppings array.
 pizza.addTopping('pepperoni');
 
-// Result from console log should show a pizza object with the name and toppings array.
+// Private function cannot be called and will be red underlined.
+// pizza.addTopping2('olives');
+
 console.log(pizza);
