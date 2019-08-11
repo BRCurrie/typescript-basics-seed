@@ -1,35 +1,25 @@
 // 'tsc' in terminal, then 'node dist/app.js' to run in terminal.
 
-// Private is only available inside of the class. Public will be available everywhere.
+// Readonly modifier only allows us to read from the value.
+// Obviously we cannot write to this property.
 
 class Pizza {
-  //   public name: string;
   toppings: string[] = [];
 
-  //   constructor(name: string) {
-  //     this.name = name;
-  //   }
+  // The property will be available outside of the class but cannot be changed.
+  constructor(readonly name: string) {}
 
-  // This constructor declares the public property of name and defines internally
-  // this.name = name. Shorthand syntax for the code above.
-  constructor(public name: string) {}
-
-  //   Public function. Properties and functions are public by default.
   addTopping(topping: string) {
-    this.toppings.push(topping);
-  }
-  //   Private function.
-  private addTopping2(topping: string) {
     this.toppings.push(topping);
   }
 }
 
 const pizza = new Pizza('Pepperoni');
 
-// Public function adding to the toppings array.
 pizza.addTopping('pepperoni');
 
-// Private function cannot be called and will be red underlined.
-// pizza.addTopping2('olives');
+// Logs Pepperoni from the above const. It is being read at this time.
+console.log(pizza.name);
 
-console.log(pizza);
+// Does not work.
+pizza.name = 'ABC';
