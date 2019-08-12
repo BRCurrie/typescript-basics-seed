@@ -5,7 +5,9 @@
 // Getting the property.
 // console.log(element.className);
 
-class Sizes {
+// We just add the word abstract and it cannot be instantiated on its own anymore.
+// We can also use this on exported classes as well.
+abstract class Sizes {
   constructor(public sizes: string[]) {}
 
   set availableSizes(sizes: string[]) {
@@ -17,13 +19,13 @@ class Sizes {
   }
 }
 
-// We extend the Pizza class with the Sizes class so we can access sizes for each pizza.
+// Currently our sizes class can be instantiated outside of the pizza class.
+// new Sizes(['small']);
+// We do not want to invoke this class on its own.
+
 class Pizza extends Sizes {
   toppings: string[] = [];
-  // Constructors for derived classes must use a super call.
-  // We add the sizes: string[] to the argument, and pass sizes into the super call.
   constructor(readonly name: string, public sizes: string[]) {
-    // We do not just pass in the array here, we pass it in when we create each pizza.
     super(sizes);
   }
 
@@ -31,12 +33,10 @@ class Pizza extends Sizes {
     this.toppings.push(topping);
   }
 }
-// We pass in the available sizes for the super call here.
 const pizza = new Pizza('Pepperoni', ['small', 'medium']);
 
 pizza.addTopping('pepperoni');
 
 console.log(pizza.name);
-// We can now use the inherited getters and setters from the sizes class.
-// We retrieve the sizes now.
+
 console.log(pizza.availableSizes);
