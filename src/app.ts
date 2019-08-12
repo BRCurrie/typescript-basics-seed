@@ -1,14 +1,12 @@
 // 'tsc' in terminal, then 'node dist/app.js' to run in terminal.
 
-// Setting the value of a property.
-// element.className = 'abc'
-// Getting the property.
-// console.log(element.className);
-
-// We just add the word abstract and it cannot be instantiated on its own anymore.
-// We can also use this on exported classes as well.
+// We are going to change the sizes to be a private property.
+// We cannot use them by simply calling pizza.sizes on a function on its own.
+// Instead we use the declaration of protected.
+// This allows us to modify the sizes class through the pizza class that extends it,
+// but it is still private outside of that scope.
 abstract class Sizes {
-  constructor(public sizes: string[]) {}
+  constructor(protected sizes: string[]) {}
 
   set availableSizes(sizes: string[]) {
     this.sizes = sizes;
@@ -19,14 +17,16 @@ abstract class Sizes {
   }
 }
 
-// Currently our sizes class can be instantiated outside of the pizza class.
-// new Sizes(['small']);
-// We do not want to invoke this class on its own.
-
 class Pizza extends Sizes {
   toppings: string[] = [];
-  constructor(readonly name: string, public sizes: string[]) {
+  constructor(readonly name: string, sizes: string[]) {
     super(sizes);
+  }
+
+  //  But we might want to update sizes from inside the pizza class.
+  //  This does not work if sizes is private, but will if it is protected.
+  public updateSizes(sizes: string[]) {
+    this.sizes = sizes;
   }
 
   addTopping(topping: string) {
@@ -36,7 +36,8 @@ class Pizza extends Sizes {
 const pizza = new Pizza('Pepperoni', ['small', 'medium']);
 
 pizza.addTopping('pepperoni');
-
-console.log(pizza.name);
-
+// We log the current available sizes.
+console.log(pizza.availableSizes);
+// Then update our protected members and see our update.
+pizza.updateSizes(['large']);
 console.log(pizza.availableSizes);
