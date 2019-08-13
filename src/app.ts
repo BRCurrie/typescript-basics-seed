@@ -1,11 +1,17 @@
 // 'tsc' in terminal, then 'node dist/app.js' to run in terminal.
 
-// We are going to change the sizes to be a private property.
-// We cannot use them by simply calling pizza.sizes on a function on its own.
-// Instead we use the declaration of protected.
-// This allows us to modify the sizes class through the pizza class that extends it,
-// but it is still private outside of that scope.
-abstract class Sizes {
+// We do not currently have any interfaces to work with our classes.
+// You can only define properties. You cannot specify if it is for a setter or getter.
+// This is where unit tests come into play.
+interface SizesInterface {
+  // We cannot define private/protected properties in the interface.
+  // It would work if it was public.
+  // sizes: string[];
+  availableSizes: string[];
+}
+
+// We add the implements keyword and our interface.
+abstract class Sizes implements SizesInterface {
   constructor(protected sizes: string[]) {}
 
   set availableSizes(sizes: string[]) {
@@ -17,14 +23,23 @@ abstract class Sizes {
   }
 }
 
-class Pizza extends Sizes {
+// Just like the pizza class extends the Sizes interface,
+// the PizzaInterface extends the SizesInterface.
+// This is all done for type checking purposes. It would show a red underline
+// in the editor if something was mispelled for example.
+interface PizzaInterface extends SizesInterface {
+  readonly name: string;
+  toppings: string[];
+  // Both functions will not return anything, so the type is void.
+  updateSizes(sizes: string[]): void;
+  addTopping(topping: string): void;
+}
+
+class Pizza extends Sizes implements PizzaInterface {
   toppings: string[] = [];
   constructor(readonly name: string, sizes: string[]) {
     super(sizes);
   }
-
-  //  But we might want to update sizes from inside the pizza class.
-  //  This does not work if sizes is private, but will if it is protected.
   public updateSizes(sizes: string[]) {
     this.sizes = sizes;
   }
@@ -36,8 +51,6 @@ class Pizza extends Sizes {
 const pizza = new Pizza('Pepperoni', ['small', 'medium']);
 
 pizza.addTopping('pepperoni');
-// We log the current available sizes.
 console.log(pizza.availableSizes);
-// Then update our protected members and see our update.
 pizza.updateSizes(['large']);
 console.log(pizza.availableSizes);
